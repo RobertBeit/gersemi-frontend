@@ -1,0 +1,165 @@
+.paper-bot-panel {
+  margin: 24px 0;
+  padding: 20px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(11, 24, 47, 0.92), rgba(17, 62, 88, 0.88));
+  border: 1px solid rgba(135, 206, 235, 0.28);
+  box-shadow: 0 18px 40px rgba(4, 12, 24, 0.22);
+  color: #f4f8fb;
+}
+
+.paper-bot-panel__header h2 {
+  margin: 0 0 6px;
+}
+
+.paper-bot-panel__header p {
+  margin: 0;
+  color: rgba(244, 248, 251, 0.78);
+}
+
+.paper-bot-panel__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: end;
+  margin-top: 18px;
+}
+
+.paper-bot-panel__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 220px;
+}
+
+.paper-bot-panel__field input {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  color: #f4f8fb;
+}
+
+.paper-bot-panel__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.paper-bot-panel__polling {
+  align-self: center;
+  color: rgba(183, 255, 214, 0.95);
+  font-weight: 600;
+}
+
+.paper-bot-panel__buttons button {
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 12px;
+  cursor: pointer;
+  background: #ffd166;
+  color: #14213d;
+  font-weight: 700;
+}
+
+.paper-bot-panel__buttons button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.paper-bot-panel__status {
+  margin-top: 18px;
+}
+
+.paper-bot-panel__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.paper-bot-panel__grid div,
+.paper-bot-panel__trade-card {
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.paper-bot-panel__grid span {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(244, 248, 251, 0.7);
+}
+
+.paper-bot-panel__grid strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 18px;
+}
+
+.paper-bot-panel__error {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 107, 107, 0.14);
+  border: 1px solid rgba(255, 107, 107, 0.4);
+}
+
+.paper-bot-panel__trade-card {
+  margin-top: 14px;
+}
+
+.paper-bot-panel__trade-card h3 {
+  margin-top: 0;
+}
+
+.paper-bot-panel__chart-card,
+.paper-bot-panel__trades-card {
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.paper-bot-panel__chart-card h3,
+.paper-bot-panel__trades-card h3 {
+  margin-top: 0;
+}
+
+.paper-bot-panel__table-wrap {
+  overflow-x: auto;
+}
+
+.paper-bot-panel__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.paper-bot-panel__table th,
+.paper-bot-panel__table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.paper-bot-panel__table th {
+  color: rgba(244, 248, 251, 0.85);
+  font-weight: 700;
+  position: sticky;
+  top: 0;
+  background: rgba(11, 24, 47, 0.96);
+}
+
+.paper-bot-panel__muted {
+  color: rgba(244, 248, 251, 0.7);
+}
+
+.pnl-positive {
+  color: #8fff9b;
+}
+
+.pnl-negative {
+  color: #ff8e8e;
+}

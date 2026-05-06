@@ -1,0 +1,306 @@
+/* Bottom/Peak Detector Component styles */
+/* Add these to your styles.css file */
+
+.bottom-peak-detector {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.controls {
+  margin-bottom: 1.5rem;
+}
+
+.control-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.controls label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: 500;
+  flex: 1;
+}
+
+.controls input[type="range"] {
+  flex: 1;
+  max-width: 300px;
+}
+
+.button-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.retrain-button, .clear-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.retrain-button {
+  background-color: #4a6fa5;
+  color: white;
+}
+
+.retrain-button:hover {
+  background-color: #3a5a8c;
+}
+
+.clear-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.clear-button:hover {
+  background-color: #c82333;
+}
+
+.retrain-button:disabled, .clear-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.model-info {
+  margin-top: 0.5rem;
+}
+
+.training-metrics {
+  display: flex;
+  gap: 2rem;
+}
+
+.metric {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.chart-container {
+  margin-bottom: 2rem;
+}
+
+.secondary-chart {
+  margin-bottom: 2rem;
+}
+
+.secondary-chart h4 {
+  margin-bottom: 0.5rem;
+  color: #555;
+  font-size: 1rem;
+}
+
+.loading {
+  padding: 2rem;
+  text-align: center;
+}
+
+.progress-container {
+  width: 100%;
+  height: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  margin: 1rem 0;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #4a6fa5;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.custom-tooltip {
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.custom-tooltip .date {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.custom-tooltip p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+}
+
+.detected-signals {
+  margin-top: 2rem;
+}
+
+.signal-legend {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.signal-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bottom-marker,
+.peak-marker {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.bottom-marker {
+  background-color: green;
+}
+
+.peak-marker {
+  background-color: red;
+}
+
+.signal-table-container {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
+
+.signal-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.signal-table th,
+.signal-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.signal-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #333;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.bottom-row {
+  background-color: rgba(40, 167, 69, 0.1);
+}
+
+.peak-row {
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+.indicators {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.indicator {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.methodology {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #dee2e6;
+}
+
+.methodology ul {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.methodology li {
+  margin-bottom: 0.5rem;
+}
+
+.disclaimer {
+  margin-top: 1.5rem;
+  padding: 0.75rem;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  color: #721c24;
+  font-size: 0.875rem;
+}
+
+.debug-output {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+.debug-output h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.debug-output button {
+  margin-bottom: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  background-color: #e9ecef;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.debug-output pre {
+  margin: 0;
+  padding: 0.5rem;
+  background-color: #f1f3f5;
+  border-radius: 4px;
+  max-height: 300px;
+  overflow-y: auto;
+  font-size: 0.8rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.error {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+}
+
+.no-data {
+  padding: 2rem;
+  text-align: center;
+  background-color: #e2e3e5;
+  color: #383d41;
+  border-radius: 4px;
+  margin-top: 1rem;
+}

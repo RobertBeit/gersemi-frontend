@@ -1,0 +1,139 @@
+.ml-job-queue-panel {
+  margin: 24px 0;
+  padding: 18px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #132a13, #31572c);
+  color: #f1faee;
+  border: 1px solid rgba(241, 250, 238, 0.2);
+}
+
+.ml-job-queue-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.ml-job-queue-header h2 {
+  margin: 0;
+}
+
+.ml-job-queue-header p {
+  margin: 6px 0 0;
+  color: rgba(241, 250, 238, 0.85);
+}
+
+.ml-job-queue-summary {
+  text-align: center;
+  min-width: 80px;
+}
+
+.ml-job-queue-summary strong {
+  display: block;
+  font-size: 28px;
+}
+
+.ml-job-actions {
+  margin-top: 12px;
+}
+
+.ml-job-actions button {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.ml-job-list {
+  margin-top: 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.ml-job-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.ml-job-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ml-job-title h3 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.status {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.status-queued {
+  background: #f77f00;
+  color: #fff;
+}
+
+.status-running {
+  background: #1d3557;
+  color: #fff;
+}
+
+.status-completed {
+  background: #2a9d8f;
+  color: #fff;
+}
+
+.status-failed,
+.status-cancelled {
+  background: #e63946;
+  color: #fff;
+}
+
+.ml-job-item-main p {
+  margin: 4px 0 0;
+  font-size: 12px;
+}
+
+.ml-job-item-actions button {
+  border: 0;
+  border-radius: 10px;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.ml-job-result {
+  margin-top: 14px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.ml-job-result pre {
+  margin: 0;
+  max-height: 260px;
+  overflow: auto;
+  font-size: 12px;
+}
+
+.ml-job-error,
+.ml-job-error-inline {
+  color: #ffd6d6;
+}
+
+.ml-job-empty {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 12px;
+}

@@ -1,0 +1,1125 @@
+/* Modern Stock Analysis App - Section 1: Base Setup and Variables */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Dark theme colors */
+  --bg-primary: #0a0b0f;
+  --bg-secondary: #1a1d24;
+  --bg-tertiary: #242830;
+  --bg-card: #1e2128;
+  --bg-hover: #2a2d35;
+  
+  /* Accent colors */
+  --accent-primary: #00d4ff;
+  --accent-secondary: #7c3aed;
+  --accent-green: #00c896;
+  --accent-red: #ff4757;
+  --accent-orange: #ffa726;
+  --accent-yellow: #ffeb3b;
+  
+  /* Text colors */
+  --text-primary: #ffffff;
+  --text-secondary: #a0a3bd;
+  --text-muted: #6b7280;
+  --text-disabled: #4b5563;
+  
+  /* Border colors */
+  --border-primary: #2d3748;
+  --border-secondary: #374151;
+  --border-accent: #00d4ff;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-secondary: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
+  --gradient-success: linear-gradient(135deg, #00c896 0%, #00a86b 100%);
+  --gradient-danger: linear-gradient(135deg, #ff4757 0%, #c44569 100%);
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(0, 212, 255, 0.3);
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+}
+
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Animated background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(120, 58, 237, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(0, 200, 150, 0.05) 0%, transparent 50%);
+  z-index: -1;
+  animation: backgroundFlow 20s ease-in-out infinite;
+}
+
+@keyframes backgroundFlow {
+  0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); }
+  33% { transform: translateX(-5px) translateY(-10px) rotate(1deg); }
+  66% { transform: translateX(10px) translateY(5px) rotate(-1deg); }
+}
+
+/* Main app container */
+.app {
+  min-height: 100vh;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  position: relative;
+}
+
+/* Modern Stock Analysis App - Section 2: Header, Footer, and Form Styles */
+
+/* App Header */
+.app-header {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+  padding: var(--spacing-xl) 0;
+}
+
+.app-title {
+  font-size: 3rem;
+  font-weight: 700;
+  background: var(--gradient-secondary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+}
+
+.app-icon {
+  font-size: 3rem;
+  filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5));
+}
+
+.app-subtitle {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+}
+
+.stock-symbol {
+  color: var(--accent-primary);
+  font-weight: 700;
+}
+
+/* App Footer */
+.app-footer {
+  text-align: center;
+  padding: var(--spacing-2xl) 0;
+  margin-top: var(--spacing-2xl);
+  border-top: 1px solid var(--border-primary);
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.disclaimer-footer {
+  margin-top: var(--spacing-sm);
+  color: var(--accent-yellow);
+  font-weight: 500;
+}
+
+/* Stock Form Styles */
+.stock-form {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.stock-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradient-secondary);
+}
+
+.stock-form h2 {
+  color: var(--text-primary);
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-lg);
+  background: var(--gradient-secondary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.form-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: var(--spacing-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.form-group input {
+  width: 100%;
+  padding: var(--spacing-md);
+  font-size: 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.form-group input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Modern Stock Analysis App - Section 3: Buttons, Loading, and Navigation Styles */
+
+/* Button Styles */
+button {
+  font-family: inherit;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.875rem;
+  background: var(--gradient-secondary);
+  color: var(--text-primary);
+  padding: var(--spacing-md) var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+}
+
+button:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+button:hover:before {
+  left: 100%;
+}
+
+button:disabled {
+  background: var(--bg-tertiary);
+  color: var(--text-disabled);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Loading Spinner */
+.loading {
+  text-align: center;
+  padding: var(--spacing-2xl);
+  color: var(--text-secondary);
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid var(--bg-tertiary);
+  border-top: 3px solid var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto var(--spacing-lg) auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading p {
+  font-size: 1.125rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Tab Navigation */
+.tab-navigation {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping */
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-sm); /* Slightly more padding */
+  margin-bottom: var(--spacing-xl);
+  border: 1px solid var(--border-primary);
+  gap: var(--spacing-xs); /* Add gap between items */
+  /* Remove overflow-x: auto; since we're wrapping now */
+}
+
+.tab-navigation button {
+  background: transparent;
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-md); /* Slightly smaller */
+  margin: 0;
+  font-size: 0.8rem; /* Slightly smaller font */
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  border-radius: var(--radius-md);
+  text-transform: none;
+  letter-spacing: normal;
+  flex: 0 0 auto; /* Don't grow/shrink, natural size */
+}
+
+.tab-navigation button:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+}
+
+.tab-navigation button.active {
+  color: var(--text-primary);
+  background: var(--gradient-secondary);
+  box-shadow: var(--shadow-md);
+}
+
+/* Results Container */
+.results {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+}
+
+.results h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-lg);
+  background: var(--gradient-secondary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+}
+
+/* Error States */
+.error {
+  background: rgba(255, 71, 87, 0.1);
+  border: 1px solid var(--accent-red);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  color: #ffcdd2;
+}
+
+/* Progress Bar */
+.progress-container {
+  width: 100%;
+  height: 8px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin: var(--spacing-lg) 0;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--gradient-secondary);
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: progressShine 2s infinite;
+}
+
+@keyframes progressShine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.progress-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-top: var(--spacing-sm);
+}
+
+.tab-content {
+  padding: var(--spacing-md) 0;
+}
+
+/* Modern Stock Analysis App - Section 4: Bottom Peak Detector and Control Styles */
+
+/* Bottom Peak Detector Specific Styles */
+.bottom-peak-detector {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  margin-top: var(--spacing-xl);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+}
+
+.bottom-peak-detector h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-lg);
+  background: var(--gradient-secondary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.controls {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+  border: 1px solid var(--border-primary);
+}
+
+.control-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+.control-row label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  font-weight: 500;
+  color: var(--text-secondary);
+  flex: 1;
+  min-width: 200px;
+}
+
+.control-row input[type="range"] {
+  flex: 1;
+  max-width: 300px;
+  height: 6px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-full);
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.control-row input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: var(--gradient-secondary);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+}
+
+.control-row input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: var(--gradient-secondary);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: var(--shadow-md);
+}
+
+.button-group {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.retrain-button, .clear-button {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.retrain-button {
+  background: var(--gradient-secondary);
+  color: var(--text-primary);
+}
+
+.retrain-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.clear-button {
+  background: var(--gradient-danger);
+  color: var(--text-primary);
+}
+
+.clear-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.retrain-button:disabled, .clear-button:disabled {
+  background: var(--bg-tertiary);
+  color: var(--text-disabled);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.model-info {
+  margin-top: var(--spacing-md);
+}
+
+.training-metrics {
+  display: flex;
+  gap: var(--spacing-xl);
+  flex-wrap: wrap;
+}
+
+.metric {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  background: var(--bg-tertiary);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-primary);
+}
+
+/* Modern Stock Analysis App - Section 5: Charts, Tooltips, and Signal Detection Styles */
+
+/* Chart Container */
+.chart-container, .secondary-chart {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+  border: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.secondary-chart h4 {
+  margin-bottom: var(--spacing-md);
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Custom Tooltip */
+.custom-tooltip {
+  background: rgba(10, 11, 15, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow-xl);
+  color: var(--text-primary);
+}
+
+.custom-tooltip .date {
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
+  color: var(--accent-primary);
+}
+
+.custom-tooltip p {
+  margin: var(--spacing-xs) 0;
+  font-size: 0.875rem;
+}
+
+/* Signal Detection */
+.detected-signals {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin-top: var(--spacing-xl);
+  border: 1px solid var(--border-primary);
+}
+
+.detected-signals h4 {
+  margin-bottom: var(--spacing-lg);
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.signal-legend {
+  display: flex;
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.signal-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.bottom-marker, .peak-marker {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: var(--shadow-sm);
+}
+
+.bottom-marker {
+  background: var(--gradient-success);
+}
+
+.peak-marker {
+  background: var(--gradient-danger);
+}
+
+/* Modern Stock Analysis App - Section 6: Signal Table and Methodology Styles */
+
+/* Signal Table */
+.signal-table-container {
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  background: var(--bg-tertiary);
+}
+
+.signal-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.signal-table th,
+.signal-table td {
+  padding: var(--spacing-md);
+  text-align: left;
+  border-bottom: 1px solid var(--border-primary);
+  font-size: 0.875rem;
+}
+
+.signal-table th {
+  background: var(--bg-secondary);
+  font-weight: 600;
+  color: var(--text-secondary);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.75rem;
+}
+
+.signal-table td:first-child,
+.signal-table th:first-child {
+  text-align: left;
+}
+
+.bottom-row {
+  background: rgba(0, 200, 150, 0.05);
+  border-left: 3px solid var(--accent-green);
+}
+
+.peak-row {
+  background: rgba(255, 71, 87, 0.05);
+  border-left: 3px solid var(--accent-red);
+}
+
+.bottom-row:hover,
+.peak-row:hover {
+  background: var(--bg-hover);
+}
+
+.indicators {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.indicator {
+  font-size: 0.75rem;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  color: var(--text-secondary);
+}
+
+/* Methodology and Disclaimer */
+.methodology, .disclaimer {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin-top: var(--spacing-xl);
+  border: 1px solid var(--border-primary);
+}
+
+.methodology h4, .disclaimer p {
+  margin-bottom: var(--spacing-md);
+  color: var(--text-secondary);
+}
+
+.methodology ul {
+  padding-left: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+.methodology li {
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-secondary);
+}
+
+.disclaimer {
+  background: rgba(255, 193, 7, 0.05);
+  border: 1px solid rgba(255, 193, 7, 0.2);
+  color: #fff3cd;
+}
+
+/* Modern Stock Analysis App - Section 7: Debug, No Data, and Responsive Styles (FINAL) */
+
+/* Debug Output */
+.debug-output {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  margin-top: var(--spacing-xl);
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.debug-output h4 {
+  margin-bottom: var(--spacing-md);
+  color: var(--text-secondary);
+  font-family: 'Inter', sans-serif;
+}
+
+.debug-output button {
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-xs) var(--spacing-md);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.debug-output pre {
+  margin: 0;
+  padding: var(--spacing-md);
+  background: var(--bg-primary);
+  border-radius: var(--radius-sm);
+  max-height: 300px;
+  overflow-y: auto;
+  font-size: 0.75rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-primary);
+}
+
+/* No Data State */
+.no-data {
+  padding: var(--spacing-2xl);
+  text-align: center;
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-primary);
+  margin-top: var(--spacing-xl);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app {
+    padding: var(--spacing-md);
+  }
+  
+  .app-title {
+    font-size: 2rem;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .app-icon {
+    font-size: 2rem;
+  }
+  
+  .stock-form, .results, .bottom-peak-detector {
+    padding: var(--spacing-lg);
+  }
+  
+  .control-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .control-row label {
+    min-width: auto;
+  }
+  
+  .tab-navigation {
+    justify-content: flex-start;
+  }
+  
+  .training-metrics {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .signal-legend {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .results h2 {
+    font-size: 1.5rem;
+  }
+  
+  .bottom-peak-detector h3 {
+    font-size: 1.25rem;
+  }
+  
+  .signal-table th,
+  .signal-table td {
+    padding: var(--spacing-sm);
+    font-size: 0.75rem;
+  }
+  
+  .button-group {
+    flex-direction: column;
+  }
+}
+
+/* Glass morphism card effect */
+.glass-card {
+  background: rgba(30, 33, 40, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Stock Search Dropdown Styles */
+/* Add this to your styles.css file */
+
+.stock-search-dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.search-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+  padding: var(--spacing-md);
+  padding-right: 3rem;
+  font-size: 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.dropdown-toggle {
+  position: absolute;
+  right: var(--spacing-sm);
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  transition: all 0.3s ease;
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 0.75rem;
+}
+
+.dropdown-toggle:hover {
+  color: var(--accent-primary);
+  background: var(--bg-hover);
+  transform: none;
+  box-shadow: none;
+}
+
+.dropdown-arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.dropdown-arrow.open {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xl);
+  z-index: 1000;
+  margin-top: var(--spacing-xs);
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-header {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-primary);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.dropdown-list {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.dropdown-item {
+  padding: var(--spacing-sm) var(--spacing-md);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid rgba(45, 55, 72, 0.3);
+}
+
+.dropdown-item:hover,
+.dropdown-item.highlighted {
+  background: var(--bg-hover);
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.stock-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.stock-main {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.stock-symbol {
+  font-weight: 700;
+  color: var(--accent-primary);
+  font-size: 0.875rem;
+  min-width: 60px;
+  text-transform: uppercase;
+}
+
+.stock-name {
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stock-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stock-sector {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-sm);
+  border: 1px solid currentColor;
+}
+
+.no-results {
+  text-align: center;
+  padding: var(--spacing-lg);
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.use-custom-button {
+  background: var(--gradient-secondary);
+  color: var(--text-primary);
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.use-custom-button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.dropdown-footer {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-primary);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* Scrollbar styling for dropdown list */
+.dropdown-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dropdown-list::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+.dropdown-list::-webkit-scrollbar-thumb {
+  background: var(--border-primary);
+  border-radius: var(--radius-full);
+}
+
+.dropdown-list::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dropdown-menu {
+    max-height: 300px;
+  }
+  
+  .dropdown-list {
+    max-height: 220px;
+  }
+  
+  .stock-name {
+    font-size: 0.8rem;
+  }
+  
+  .stock-symbol {
+    font-size: 0.8rem;
+    min-width: 50px;
+  }
+  
+  .stock-sector {
+    font-size: 0.7rem;
+  }
+}
