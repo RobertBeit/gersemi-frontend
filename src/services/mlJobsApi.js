@@ -35,7 +35,7 @@ export const enqueueMlJob = async ({ service, method, args = [], metadata = {} }
  * @param {string} endDate - "YYYY-MM-DD"
  * @param {object} options - algorithm-specific options
  * @param {object} metadata - optional metadata
- * @returns {Promise} job with id, status, etc.
+ * @returns {Promise} job with id, status, fetched stockData, etc.
  */
 export const predictWithData = async ({
   symbol,

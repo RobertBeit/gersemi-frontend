@@ -14,7 +14,6 @@ import {
   Legend,
   ReferenceDot,
 } from 'recharts';
-import { fetchStockDataFromBackend } from '../services/stockDataService';
 import {
   predictWithData,
   fetchMlJob,
@@ -712,6 +711,10 @@ const StockMLAnalysisTab = () => {
           metadata,
         });
 
+        if (queued.length === 0 && Array.isArray(job?.stockData)) {
+          setStockData(job.stockData);
+        }
+
         queued.push({
           id: job.id,
           algorithm,
@@ -792,9 +795,8 @@ const StockMLAnalysisTab = () => {
     const normalizedSymbol = symbol.trim().toUpperCase();
 
     try {
-      const data = await fetchStockDataFromBackend(normalizedSymbol, startDate, endDate);
-      setStockData(data);
       setCurrentStock(normalizedSymbol);
+      setStockData([]);
       setActiveView('chart');
       await queueSelectedAlgorithms({
         stockSymbol: normalizedSymbol,

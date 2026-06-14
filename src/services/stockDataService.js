@@ -36,7 +36,7 @@ export const fetchStockDataFromBackend = async (symbol, startDate, endDate) => {
         endDate,
         includeIntraday: true,
       },
-      timeout: 30000,
+      timeout: 120000,
     });
 
     console.log('✓ Response status:', response.status);
