@@ -2,25 +2,14 @@
 // Service to fetch stock data from the backend microservice
 
 import axios from 'axios';
+import { resolveServiceBaseUrl } from './runtimeEnv';
 
-const trimTrailingSlash = (value) => value.replace(/\/+$/, '');
-
-const resolveMlBackendBaseUrl = () => {
-  const candidates = [
-    process.env.REACT_APP_BACKEND_ML_URL,
-    process.env.REACT_APP_BACKEND_ML_URL_DEV,
-    process.env.REACT_APP_BACKEND_ML_URL_LOCAL,
-    process.env.REACT_APP_MICROSERVICE_BASE_URL_DEV,
-  ];
-
-  const configured = candidates.find(
-    (value) => typeof value === 'string' && value.trim().length > 0
-  );
-
-  return configured ? trimTrailingSlash(configured.trim()) : 'https://localhost:3004';
-};
-
-const BASE_URL = resolveMlBackendBaseUrl();
+const BASE_URL = resolveServiceBaseUrl({
+  explicitUrl: process.env.REACT_APP_BACKEND_ML_URL,
+  localUrl: process.env.REACT_APP_BACKEND_ML_URL_LOCAL,
+  deployedUrl: process.env.REACT_APP_BACKEND_ML_URL_DEV,
+  fallbackUrl: 'https://localhost:3004',
+});
 
 /**
  * Fetch historical stock data from the backend

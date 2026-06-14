@@ -1,7 +1,11 @@
-const BASE_URL =
-  process.env.REACT_APP_BACKEND_ML_URL_DEV ||
-  process.env.REACT_APP_BACKEND_ML_URL_LOCAL ||
-  process.env.REACT_APP_MICROSERVICE_BASE_URL_DEV;
+import { resolveServiceBaseUrl } from './runtimeEnv';
+
+const BASE_URL = resolveServiceBaseUrl({
+  explicitUrl: process.env.REACT_APP_BACKEND_ML_URL,
+  localUrl: process.env.REACT_APP_BACKEND_ML_URL_LOCAL,
+  deployedUrl: process.env.REACT_APP_BACKEND_ML_URL_DEV,
+  fallbackUrl: 'https://localhost:3004',
+});
 
 const parseJson = async (response) => {
   const data = await response.json();

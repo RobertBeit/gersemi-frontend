@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
+import { resolveServiceBaseUrl } from '../services/runtimeEnv';
 
 const RECENT_SEARCHES_KEY = 'senatorRecentSearches';
 const MAX_RECENT_SEARCHES = 10;
+
+const SENATOR_BASE_URL = resolveServiceBaseUrl({
+  explicitUrl: process.env.REACT_APP_SENATOR_MICROSERVICE_BASE_URL,
+  localUrl: process.env.REACT_APP_SENATOR_MICROSERVICE_BASE_URL_LOCAL,
+  deployedUrl: process.env.REACT_APP_SENATOR_MICROSERVICE_BASE_URL_DEV,
+  fallbackUrl: 'https://localhost:3001',
+});
 
 const SenatorTransactionSearch = () => {
   const [firstName, setFirstName] = useState('');
@@ -84,13 +92,12 @@ const SenatorTransactionSearch = () => {
     }
 
     try {
-      const baseURL = process.env.REACT_APP_MICROSERVICE_BASE_URL_DEV;
       const params = new URLSearchParams();
       if (firstName) params.append('firstName', firstName);
       if (lastName) params.append('lastName', lastName);
       params.append('startDate', startDate);
       params.append('endDate', endDate);
-      const url = `${baseURL}/api/senator-transactions?${params.toString()}`;
+      const url = `${SENATOR_BASE_URL}/api/senator-transactions?${params.toString()}`;
 
       console.log('Requesting:', url);
 

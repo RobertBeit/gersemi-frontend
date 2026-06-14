@@ -1,7 +1,11 @@
-const BOT_BASE_URL =
-  process.env.REACT_APP_BOT_BASE_URL_DEV ||
-  process.env.REACT_APP_BOT_BASE_URL_LOCAL ||
-  'http://localhost:3002';
+import { resolveServiceBaseUrl } from './runtimeEnv';
+
+const BOT_BASE_URL = resolveServiceBaseUrl({
+  explicitUrl: process.env.REACT_APP_BOT_BASE_URL,
+  localUrl: process.env.REACT_APP_BOT_BASE_URL_LOCAL,
+  deployedUrl: process.env.REACT_APP_BOT_BASE_URL_DEV,
+  fallbackUrl: 'http://localhost:3002',
+});
 
 const parseJsonResponse = async (response) => {
   const data = await response.json();
