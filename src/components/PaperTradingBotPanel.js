@@ -198,6 +198,20 @@ const PaperTradingBotPanel = () => {
               </strong>
             </div>
             <div>
+              <span>Quote Age</span>
+              <strong>
+                {session.lastQuote?.quoteAgeSeconds != null
+                  ? `${session.lastQuote.quoteAgeSeconds}s`
+                  : 'N/A'}
+              </strong>
+            </div>
+            <div>
+              <span>Quote Freshness</span>
+              <strong className={session.lastQuote?.isStale ? 'pnl-negative' : 'pnl-positive'}>
+                {session.lastQuote?.isStale ? 'STALE' : 'FRESH'}
+              </strong>
+            </div>
+            <div>
               <span>Cash</span>
               <strong>{formatMoney(session.portfolio?.cash)}</strong>
             </div>

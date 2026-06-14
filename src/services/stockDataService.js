@@ -3,7 +3,24 @@
 
 import axios from 'axios';
 
-const BASE_URL = process.env.REACT_APP_MICROSERVICE_BASE_URL_DEV;
+const trimTrailingSlash = (value) => value.replace(/\/+$/, '');
+
+const resolveMlBackendBaseUrl = () => {
+  const candidates = [
+    process.env.REACT_APP_BACKEND_ML_URL,
+    process.env.REACT_APP_BACKEND_ML_URL_DEV,
+    process.env.REACT_APP_BACKEND_ML_URL_LOCAL,
+    process.env.REACT_APP_MICROSERVICE_BASE_URL_DEV,
+  ];
+
+  const configured = candidates.find(
+    (value) => typeof value === 'string' && value.trim().length > 0
+  );
+
+  return configured ? trimTrailingSlash(configured.trim()) : 'https://localhost:3004';
+};
+
+const BASE_URL = resolveMlBackendBaseUrl();
 
 /**
  * Fetch historical stock data from the backend
@@ -13,10 +30,11 @@ const BASE_URL = process.env.REACT_APP_MICROSERVICE_BASE_URL_DEV;
  * @returns {Promise<Array>} Array of stock data objects
  */
 export const fetchStockDataFromBackend = async (symbol, startDate, endDate) => {
-  const url = `${BASE_URL}/api/stocks`;
+  const url = `${BASE_URL}/api/predict/stock-data`;
   
   console.log('=== Backend Service Request ===');
-  console.log('BASE_URL from env:', process.env.REACT_APP_MICROSERVICE_BASE_URL_LOCAL);
+  console.log('ML backend URL (local):', process.env.REACT_APP_BACKEND_ML_URL_LOCAL);
+  console.log('ML backend URL (dev):', process.env.REACT_APP_BACKEND_ML_URL_DEV);
   console.log('Resolved BASE_URL:', BASE_URL);
   console.log('Full URL:', url);
   console.log('Params:', { symbol: symbol.toUpperCase(), startDate, endDate });
@@ -27,6 +45,7 @@ export const fetchStockDataFromBackend = async (symbol, startDate, endDate) => {
         symbol: symbol.toUpperCase(),
         startDate,
         endDate,
+        includeIntraday: true,
       },
       timeout: 30000,
     });
@@ -40,7 +59,7 @@ export const fetchStockDataFromBackend = async (symbol, startDate, endDate) => {
     }
 
     console.error('✗ Invalid response format:', response.data);
-    throw new Error('Invalid response format from backend');
+    throw new Error('Invalid response format from ML backend');
   } catch (error) {
     console.error('=== Backend Service Error ===');
     console.error('Error type:', error.constructor.name);
@@ -62,13 +81,13 @@ export const fetchStockDataFromBackend = async (symbol, startDate, endDate) => {
     }
     
     if (error.code === 'ECONNREFUSED') {
-      throw new Error('Backend server is not running. Please start the backend on port 3001.');
+      throw new Error('ML backend is not running. Please start it on port 3004 or set REACT_APP_BACKEND_ML_URL to your deployed service URL.');
     }
     
     if (error.code === 'ERR_NETWORK' || error.message.includes('Network Error')) {
-      throw new Error(`Network error: Cannot connect to ${BASE_URL}. Check if backend is running and CORS is configured.`);
+      throw new Error(`Network error: Cannot connect to ${BASE_URL}. Check if ML backend is running and CORS is configured.`);
     }
     
-    throw new Error(error.message || 'Failed to fetch stock data from backend');
+    throw new Error(error.message || 'Failed to fetch stock data from ML backend');
   }
 };

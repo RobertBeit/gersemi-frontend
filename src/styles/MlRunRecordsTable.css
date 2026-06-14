@@ -1,0 +1,225 @@
+.ml-runs-history {
+  margin-top: 1.25rem;
+  padding: 1rem;
+}
+
+.ml-runs-history__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ml-runs-history__header h3 {
+  margin: 0;
+}
+
+.ml-runs-history__header p {
+  margin: 0.35rem 0 0;
+  opacity: 0.85;
+}
+
+.ml-runs-history__filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.ml-runs-history__filters input,
+.ml-runs-history__filters select {
+  min-height: 36px;
+  padding: 0.55rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-primary);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  color-scheme: dark;
+}
+
+.ml-runs-history__filters input::placeholder {
+  color: var(--text-muted);
+}
+
+.ml-runs-history__filters input:focus,
+.ml-runs-history__filters select:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.12);
+}
+
+.ml-runs-history__filters input[type='date']::-webkit-calendar-picker-indicator {
+  filter: invert(0.85);
+}
+
+.ml-runs-history__table-wrap {
+  overflow-x: auto;
+}
+
+.ml-runs-history__table {
+  width: 100%;
+  min-width: 980px;
+  border-collapse: collapse;
+}
+
+.ml-runs-history__table th,
+.ml-runs-history__table td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: left;
+  vertical-align: top;
+  padding: 0.55rem;
+  font-size: 0.88rem;
+}
+
+.ml-runs-history__summary-cell {
+  min-width: 520px;
+}
+
+.ml-runs-history__summary-card {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.ml-runs-history__summary-section {
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.ml-runs-history__summary-section-title {
+  margin-bottom: 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+
+.ml-runs-history__forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.55rem;
+}
+
+.ml-runs-history__forecast-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  padding: 0.45rem 0.55rem;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.ml-runs-history__forecast-grid span,
+.ml-runs-history__metric-chip span {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.ml-runs-history__forecast-grid strong,
+.ml-runs-history__metric-chip strong {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+.ml-runs-history__metric-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.55rem;
+}
+
+.ml-runs-history__metric-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  padding: 0.45rem 0.55rem;
+  border-radius: 10px;
+  background: rgba(0, 212, 255, 0.06);
+  border: 1px solid rgba(0, 212, 255, 0.12);
+}
+
+.ml-runs-history__empty-inline {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.ml-runs-history__error-cell {
+  max-width: 250px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.ml-runs-history__note-input {
+  width: 100%;
+  min-width: 130px;
+  margin-bottom: 0.35rem;
+  border: 1px solid var(--border-primary);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-radius: 8px;
+  padding: 0.45rem 0.6rem;
+  outline: none;
+}
+
+.ml-runs-history__note-input::placeholder {
+  color: var(--text-muted);
+}
+
+.ml-runs-history__note-input:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.12);
+}
+
+.ml-runs-history__inline-btn {
+  width: 100%;
+}
+
+.ml-runs-history__details {
+  margin-top: 0.35rem;
+}
+
+.ml-runs-history__details pre {
+  max-height: 190px;
+  overflow: auto;
+  margin-top: 0.35rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.2);
+  font-size: 0.75rem;
+}
+
+.ml-runs-history__empty {
+  text-align: center;
+  opacity: 0.8;
+}
+
+.danger-button {
+  border: none;
+  border-radius: 8px;
+  padding: 0.45rem 0.7rem;
+  font-weight: 600;
+  color: #fff;
+  background: #a11a1a;
+  cursor: pointer;
+}
+
+.danger-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .ml-runs-history {
+    padding: 0.75rem;
+  }
+
+  .ml-runs-history__header {
+    flex-direction: column;
+  }
+}

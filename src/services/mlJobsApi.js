@@ -1,4 +1,7 @@
-const BASE_URL = process.env.REACT_APP_MICROSERVICE_BASE_URL_DEV;
+const BASE_URL =
+  process.env.REACT_APP_BACKEND_ML_URL_DEV ||
+  process.env.REACT_APP_BACKEND_ML_URL_LOCAL ||
+  process.env.REACT_APP_MICROSERVICE_BASE_URL_DEV;
 
 const parseJson = async (response) => {
   const data = await response.json();
@@ -13,6 +16,42 @@ export const enqueueMlJob = async ({ service, method, args = [], metadata = {} }
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ service, method, args, metadata }),
+  });
+
+  return parseJson(response);
+};
+
+/**
+ * Predict with automatic data fetch from data backend.
+ * ML backend handles data retrieval, UI only sends symbol+algorithm+dates.
+ *
+ * @param {string} symbol - e.g. "AAPL"
+ * @param {string} algorithm - e.g. "linearRegression"
+ * @param {string} startDate - "YYYY-MM-DD"
+ * @param {string} endDate - "YYYY-MM-DD"
+ * @param {object} options - algorithm-specific options
+ * @param {object} metadata - optional metadata
+ * @returns {Promise} job with id, status, etc.
+ */
+export const predictWithData = async ({
+  symbol,
+  algorithm,
+  startDate,
+  endDate,
+  options = {},
+  metadata = {},
+}) => {
+  const response = await fetch(`${BASE_URL}/api/predict`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      symbol,
+      algorithm,
+      startDate,
+      endDate,
+      options,
+      metadata,
+    }),
   });
 
   return parseJson(response);
