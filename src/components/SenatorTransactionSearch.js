@@ -11,6 +11,71 @@ const SENATOR_BASE_URL = resolveServiceBaseUrl({
   fallbackUrl: 'https://localhost:3001',
 });
 
+const TITLE_GRADIENT_PAIRS = [
+  {
+    background: 'linear-gradient(135deg, rgba(224, 231, 255, 0.95) 0%, rgba(196, 181, 253, 0.95) 100%)',
+    text: 'linear-gradient(120deg, #1e3a8a 0%, #4338ca 50%, #6d28d9 100%)',
+    border: 'rgba(79, 70, 229, 0.45)',
+  },
+  {
+    background: 'linear-gradient(135deg, rgba(204, 251, 241, 0.95) 0%, rgba(191, 219, 254, 0.95) 100%)',
+    text: 'linear-gradient(120deg, #0f766e 0%, #0369a1 50%, #1d4ed8 100%)',
+    border: 'rgba(14, 116, 144, 0.4)',
+  },
+  {
+    background: 'linear-gradient(135deg, rgba(254, 240, 138, 0.9) 0%, rgba(254, 205, 211, 0.95) 100%)',
+    text: 'linear-gradient(120deg, #b45309 0%, #be123c 55%, #7e22ce 100%)',
+    border: 'rgba(190, 24, 93, 0.38)',
+  },
+  {
+    background: 'linear-gradient(135deg, rgba(224, 242, 254, 0.95) 0%, rgba(221, 214, 254, 0.95) 100%)',
+    text: 'linear-gradient(120deg, #075985 0%, #3730a3 55%, #6d28d9 100%)',
+    border: 'rgba(55, 48, 163, 0.4)',
+  },
+  {
+    background: 'linear-gradient(135deg, rgba(209, 250, 229, 0.95) 0%, rgba(191, 219, 254, 0.95) 100%)',
+    text: 'linear-gradient(120deg, #166534 0%, #0f766e 45%, #1d4ed8 100%)',
+    border: 'rgba(21, 128, 61, 0.35)',
+  },
+  {
+    background: 'linear-gradient(135deg, rgba(255, 228, 230, 0.95) 0%, rgba(224, 231, 255, 0.95) 100%)',
+    text: 'linear-gradient(120deg, #be123c 0%, #7c3aed 60%, #1d4ed8 100%)',
+    border: 'rgba(124, 58, 237, 0.38)',
+  },
+];
+
+const parseReportDateToEpoch = (value) => {
+  if (!value || typeof value !== 'string') return 0;
+  const match = value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (!match) return 0;
+
+  const month = Number(match[1]);
+  const day = Number(match[2]);
+  const year = Number(match[3]);
+  const epoch = new Date(year, month - 1, day).getTime();
+  return Number.isFinite(epoch) ? epoch : 0;
+};
+
+const hashString = (value = '') => {
+  let hash = 0;
+  for (let i = 0; i < value.length; i += 1) {
+    hash = ((hash << 5) - hash) + value.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash);
+};
+
+const getTitleGradientStyle = (report, reportIdx) => {
+  const seed = `${report?.senator || ''}|${report?.reportTitle || ''}|${report?.reportDate || ''}|${reportIdx}`;
+  const pair = TITLE_GRADIENT_PAIRS[hashString(seed) % TITLE_GRADIENT_PAIRS.length];
+
+  return {
+    backgroundImage: pair.background,
+    borderColor: pair.border,
+    '--report-title-text-gradient': pair.text,
+  };
+};
+
 const SenatorTransactionSearch = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -22,9 +87,9 @@ const SenatorTransactionSearch = () => {
   const [recentSearches, setRecentSearches] = useState([]);
 
   const today = new Date().toISOString().split('T')[0];
-  const oneYearAgo = new Date();
-  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-  const defaultStartDate = oneYearAgo.toISOString().split('T')[0];
+  const oneMonthAgo = new Date();
+  oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+  const defaultStartDate = oneMonthAgo.toISOString().split('T')[0];
 
   React.useEffect(() => {
     if (!startDate) setStartDate(defaultStartDate);
@@ -78,6 +143,10 @@ const SenatorTransactionSearch = () => {
       .map((search) => search.lastName)
       .filter(Boolean)
   )];
+
+  const sortedResults = [...results].sort(
+    (a, b) => parseReportDateToEpoch(b?.reportDate) - parseReportDateToEpoch(a?.reportDate)
+  );
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -235,17 +304,19 @@ const SenatorTransactionSearch = () => {
         {error && <div className="error-message">{error}</div>}
       </div>
 
-      {results.length > 0 && (
+      {sortedResults.length > 0 && (
         <div className="senator-results">
           <h3>
-            {firstName || lastName ? `Results for ${firstName} ${lastName}` : 'All Senator Transactions'} ({results.length} reports found)
+            {firstName || lastName ? `Results for ${firstName} ${lastName}` : 'All Senator Transactions'} ({sortedResults.length} reports found)
           </h3>
           
-      {results.map((report, reportIdx) => (
+      {sortedResults.map((report, reportIdx) => (
             <div key={reportIdx} className="report-section">
               <div className="report-header">
-                <h4>{report.reportTitle}</h4>
-                <span className="filed-date">Filed: {report.reportDate}</span>
+                <h4 className="report-title-highlight" style={getTitleGradientStyle(report, reportIdx)}>
+                  <span className="report-title-gradient-text">{`${report.reportTitle} - ${report.senator || 'Unknown'}`}</span>
+                </h4>
+                <span className="filed-date filed-date--strong">Filed: {report.reportDate}</span>
                 {report.reportUrl && (
                   <a href={report.reportUrl} target="_blank" rel="noopener noreferrer" className="view-original">
                     View Official Document
@@ -286,7 +357,7 @@ const SenatorTransactionSearch = () => {
         </div>
       )}
 
-      {!loading && results.length === 0 && !error && (
+      {!loading && sortedResults.length === 0 && !error && (
         <div className="no-results">
           <p>Enter senator details and click search to view transactions</p>
         </div>
