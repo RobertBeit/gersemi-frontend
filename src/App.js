@@ -5,10 +5,12 @@ import React, { useState } from 'react';
 import DebugLogs from './components/DebugLogs';
 import StockMLAnalysisTab from './components/StockMLAnalysisTab';
 import SenatorTransactionSearch from './components/SenatorTransactionSearch';
+import RepresentativeTransactionSearch from './components/RepresentativeTransactionSearch';
 import PaperTradingBotPanel from './components/PaperTradingBotPanel';
 
 import './styles.css';
 import './styles/SenatorTransactionSearch.css';
+import './styles/RepresentativeTransactionSearch.css';
 import './styles/PaperTradingBotPanel.css';
 import './styles/MlJobQueuePanel.css';
 
@@ -48,6 +50,13 @@ function App() {
           Senator Lookups
         </button>
         <button
+          className={activeMainTab === 'representative' ? 'main-tab active' : 'main-tab'}
+          onClick={() => setActiveMainTab('representative')}
+        >
+          <span className="tab-icon">🏛️</span>
+          Representative Lookups
+        </button>
+        <button
           className={activeMainTab === 'bot' ? 'main-tab active' : 'main-tab'}
           onClick={() => setActiveMainTab('bot')}
         >
@@ -60,6 +69,7 @@ function App() {
       <div className="main-tab-content">
         {activeMainTab === 'analysis' && <StockMLAnalysisTab />}
         {activeMainTab === 'senator' && <SenatorTransactionSearch />}
+        {activeMainTab === 'representative' && <RepresentativeTransactionSearch />}
         {activeMainTab === 'bot' && <PaperTradingBotPanel />}
       </div>
 

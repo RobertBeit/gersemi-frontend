@@ -24,6 +24,7 @@
     "start:data": "npm start -- data",
     "start:bot": "npm start -- bot",
     "start:senator": "npm start -- senator",
+    "sync:representatives": "node scripts/sync-representatives.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
